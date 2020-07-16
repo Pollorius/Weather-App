@@ -1,0 +1,19 @@
+.input {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+ 
+.addButton {
+    padding-top: 0px;
+    height: 28px;
+    background-color: lightgray;
+    color: green;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin-left: 5px;
+    text-align: center;
+}
+
+.container {
+    margin-bottom: 5px;
+}
