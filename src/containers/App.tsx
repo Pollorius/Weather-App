@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { Route } from 'react-router-dom';
 import './App.css';
-import Cards from './components/Cards';
-import Nav from './components/Nav';
+import Cards from '../components/Cards';
+import Nav from '../components/Nav';
+import CityInfo from '../components/CityInfo';
+import About from '../components/About';
+import Footer from '../components/Footer';
 
 export type City = {
   min: number; 
@@ -13,8 +17,8 @@ export type City = {
   name: string; 
   weather: any; 
   clouds: any; 
-  latitud: any; 
-  longitud: any;
+  latitude: any; 
+  longitude: any;
 }
 
 
@@ -35,8 +39,8 @@ function App () {
             name: response.name,
             weather: response.weather[0].main,
             clouds: response.clouds.all,
-            latitud: response.coord.lat,
-            longitud: response.coord.lon
+            latitude: response.coord.lat,
+            longitude: response.coord.lon
           };
           setCities(oldCities => [...oldCities, city1]);
         } else {
@@ -44,17 +48,50 @@ function App () {
         }
     });
   }
+
   function onClose(id:number) {
     setCities(oldCities => oldCities.filter(c => c.id !== id));
   }
+
+  function onFilter(cityId: string) {
+    let city: any[] = cities.filter(c => c.id === parseInt(cityId));
+    if(city.length > 0) {
+        return city[0];
+    } else {
+        return null;
+    }
+  }
   
   return (
-      <div className="App">
-        <Nav onSearch={onSearch}/>
-        <Cards cities={cities} onClose={onClose}/>
-        
-      
-    </div>
+    <div className="App">
+    <Route
+      path='/'
+      render={() => <Nav onSearch={onSearch}/> }
+    />
+    <Route
+      path='/'
+      render={() => <Footer/> }
+    />
+    <Route
+      path='/about'
+      component={About}
+    />
+    <div>
+      <Route 
+      exact path='/'
+        render={() => <Cards 
+          cities={cities} 
+          onClose={onClose}
+          />}
+      />
+      <Route
+        exact path='/city/:cityId'
+        render={({match}) => <CityInfo
+              city={onFilter(match.params.cityId)}
+            />}
+        />
+    </div>    
+  </div>
   );
 }
 

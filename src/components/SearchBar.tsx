@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import  "./SearchBar.css"
 
 export type SearchBarProps = {
     onSearch(city: string): any,
@@ -8,19 +7,19 @@ export type SearchBarProps = {
 export default function SearchBar({onSearch}: SearchBarProps) {
   const [city, setCity] = useState("");
   return (
-    <form onSubmit={(e) => {
+    <form className="form-inline my-2 my-lg-0" onSubmit={(e) => {
       e.preventDefault();
       onSearch(city);
       setCity("");
     }}>
       <input
-        className="input"
-        type="text"
-        placeholder="City..."
+        className="form-control mr-sm-2" 
+        type="search"
+        placeholder="Find your city"
         value={city}
         onChange={e => setCity(e.target.value)}
       />
-      <input className="addButton" type="submit" value="Search" />
+      <button className="btn btn-outline-info my-2 my-sm-0 " type="submit">Search</button>
     </form>
   );
 }

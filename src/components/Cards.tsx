@@ -1,7 +1,6 @@
 import React from 'react';
-import './Cards.css';
 import Card from './Card';
-import { City } from '../App';
+import { City } from '../containers/App';
 
 type Props = {
     cities: City[],
@@ -11,7 +10,7 @@ type Props = {
 export default function Cards({ cities, onClose }: Props) {
   if(cities){
     return (
-      <div className='cards'>
+      <div className="d-flex justify-content-center flex-wrap">
         {cities.map(c => <Card
             max={c.max}
             min={c.min}
@@ -24,7 +23,7 @@ export default function Cards({ cities, onClose }: Props) {
     );
   } else {
     return(
-      <div>Sin ciudades</div>
+      <div>No Cities</div>
     )
   }
 }
